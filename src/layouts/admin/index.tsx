@@ -6,9 +6,10 @@ import Navbar from 'components/navbar/NavbarAdmin';
 import Sidebar from 'components/sidebar/Sidebar';
 import { SidebarContext } from 'contexts/SidebarContext';
 import { useEffect, useState } from 'react';
+import { useCookies } from 'react-cookie';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import routes from 'routes';
-import { useAppSelector } from 'stores/hooks';
+import { useAppDispatch, useAppSelector } from 'stores/hooks';
 
 // Custom Chakra theme
 export default function Dashboard(props: { [x: string]: any }) {
@@ -59,7 +60,21 @@ export default function Dashboard(props: { [x: string]: any }) {
 
 	document.documentElement.dir = 'ltr';
 	const { onOpen } = useDisclosure();
+	const dispatch = useAppDispatch()
 	const { auth } = useAppSelector((state) => state.auth)
+	const [cookies, setCookie] = useCookies(['auth'])
+
+	useEffect(() => {
+
+		// eslint-disable-next-line no-prototype-builtins
+		if (cookies?.hasOwnProperty('auth')) {
+			dispatch({ type: 'auth/setAuth', payload: cookies.auth.auth }) 
+		}
+
+	}, [cookies])
+
+	console.log('cookies admin', cookies)
+	console.log('auth admin', auth)
 
 	if (auth.id === '') {
 		return <Redirect from='/' to='/auth/sign-in' />
