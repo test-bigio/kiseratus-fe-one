@@ -1,24 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export const formulaSlice = createSlice({
-  name:'formula',
+  name: "formula",
   initialState: {
     showModal: false,
-    formula: ''
+    formula: "",
   },
   reducers: {
     write: (state, action) => {
-      state.formula += action.payload
+      state.formula += action.payload;
     },
     showModal: (state) => {
-      state.showModal = true
+      state.showModal = true;
     },
     hideModal: (state) => {
-      state.showModal = false
+      state.showModal = false;
     },
-  }
-})
+  },
+});
 
-export const { write, showModal, hideModal } = formulaSlice.actions
+export const { write, showModal, hideModal } = formulaSlice.actions;
 
-export default formulaSlice.reducer
+export default formulaSlice.reducer;
