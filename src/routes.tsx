@@ -1,9 +1,10 @@
 import { Icon } from '@chakra-ui/react';
-import { MdBarChart, MdPerson, MdHome, MdLock, MdOutlineShoppingCart } from 'react-icons/md';
+import { MdBarChart, MdPerson, MdHome, MdLock, MdOutlineShoppingCart, MdOutlineCalculate } from 'react-icons/md';
 
 // Admin Imports
 import MainDashboard from 'views/admin/default';
 import NFTMarketplace from 'views/admin/marketplace';
+import Formula from 'views/admin/formula';
 import Profile from 'views/admin/profile';
 import DataTables from 'views/admin/dataTables';
 import RTL from 'views/admin/rtl';
@@ -26,6 +27,13 @@ const routes = [
 		icon: <Icon as={MdOutlineShoppingCart} width='20px' height='20px' color='inherit' />,
 		component: NFTMarketplace,
 		secondary: true
+	},
+	{
+		name: 'Formula',
+		layout: '/admin',
+		path: '/formula',
+		icon: <Icon as={MdOutlineCalculate} width='20px' height='20px' color='inherit' />,
+		component: Formula,
 	},
 	{
 		name: 'Data Tables',
