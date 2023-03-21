@@ -1,4 +1,7 @@
-import React, { FC, useState } from 'react'
+import { useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { RootState } from '../../../../stores/'
+import { hideModal } from '../../../../stores/formula/formulaSlice'
 
 import {
   Modal,
@@ -15,13 +18,11 @@ import {
   Center
 } from '@chakra-ui/react'
 
-interface IModalCalculator {
-  isOpen: boolean
-  onClose: () => void
-}
 
-const ModalCalculator:FC<IModalCalculator> = (props) => {
-  const { isOpen, onClose} = props
+const ModalCalculator= () => {
+
+  const modal = useSelector((state:RootState) => state.formula.showModal)
+  const dispatch = useDispatch()
 
   const textColor = useColorModeValue("white", "black")
   const resultBarBg = useColorModeValue("gray.700", "white")
@@ -63,7 +64,7 @@ const ModalCalculator:FC<IModalCalculator> = (props) => {
 
   return (
     <>
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={modal} onClose={() => dispatch(hideModal())}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Create Formula</ModalHeader>
@@ -102,7 +103,7 @@ const ModalCalculator:FC<IModalCalculator> = (props) => {
             </Grid>
           </ModalBody>
           <ModalFooter>
-            <Button variant='ghost'  onClick={onClose}>Close</Button>
+            <Button variant='ghost' onClick={() => dispatch(hideModal())}>Close</Button>
             <Button colorScheme='blue' mr={3}>
               Create
             </Button>

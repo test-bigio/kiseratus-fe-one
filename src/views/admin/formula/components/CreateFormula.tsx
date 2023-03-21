@@ -1,4 +1,5 @@
-import { Dispatch, FC, SetStateAction } from 'react';
+import { useDispatch } from 'react-redux'
+import { showModal } from '../../../../stores/formula/formulaSlice'
 
 // custom components
 import Card from 'components/card/Card';
@@ -13,12 +14,9 @@ import {
   Input
 } from "@chakra-ui/react";
 
-interface ICreateFormula {
-  setShowModal: Dispatch<SetStateAction<boolean>>
-}
 
-const CreateFormula:FC<ICreateFormula> = (props) => {
-  const { setShowModal } = props
+const CreateFormula = () => {
+  const dispatch = useDispatch()
 
   const textColor = useColorModeValue("navy.700", "white");
 
@@ -51,7 +49,7 @@ const CreateFormula:FC<ICreateFormula> = (props) => {
             fontSize='sm'
             variant='brand'
             fontWeight='500'
-            onClick={() => setShowModal(prev => !prev)}
+            onClick={() => dispatch(showModal())}
           >
             Buat Formula
           </Button>
