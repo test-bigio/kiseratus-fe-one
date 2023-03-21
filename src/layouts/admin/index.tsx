@@ -5,9 +5,10 @@ import Footer from 'components/footer/FooterAdmin';
 import Navbar from 'components/navbar/NavbarAdmin';
 import Sidebar from 'components/sidebar/Sidebar';
 import { SidebarContext } from 'contexts/SidebarContext';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import routes from 'routes';
+import { useAppSelector } from 'stores/hooks';
 
 // Custom Chakra theme
 export default function Dashboard(props: { [x: string]: any }) {
@@ -55,8 +56,15 @@ export default function Dashboard(props: { [x: string]: any }) {
 			}
 		});
 	};
+
 	document.documentElement.dir = 'ltr';
 	const { onOpen } = useDisclosure();
+	const { auth } = useAppSelector((state) => state.auth)
+
+	if (auth.id === '') {
+		return <Redirect from='/' to='/auth/sign-in' />
+	}
+
 	return (
 		<Box>
 			<SidebarContext.Provider
