@@ -18,7 +18,8 @@ const routes = [
 		layout: '/admin',
 		path: '/default',
 		icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
-		component: MainDashboard
+		component: MainDashboard,
+		role: ["tukang-jadwal", "tukang-keluarga", "tukang-form-unik", "tukang-formula", "tukang-form-canggih", "tukang-tabel", "tukang-segala-tukang"]
 	},
 	// {
 	// 	name: 'NFT Marketplace',
@@ -34,6 +35,7 @@ const routes = [
 		path: '/formula',
 		icon: <Icon as={MdOutlineCalculate} width='20px' height='20px' color='inherit' />,
 		component: Formula,
+		role: ['tukang-formula']
 	},
 	// {
 	// 	name: 'Data Tables',
