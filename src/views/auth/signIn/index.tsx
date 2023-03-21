@@ -1,5 +1,5 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { useEffect } from "react";
+import { NavLink, Redirect } from "react-router-dom";
 // Chakra imports
 import {
   Box,
@@ -25,6 +25,8 @@ import { FcGoogle } from "react-icons/fc";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { RiEyeCloseLine } from "react-icons/ri";
 import { useFormik } from "formik";
+import { useCookies } from "react-cookie";
+import moment from "moment";
 import { useAppDispatch, useAppSelector } from "stores/hooks";
 import { login } from "stores/auth/auth.action";
 
@@ -48,7 +50,8 @@ function SignIn() {
   const [show, setShow] = React.useState(false);
   const handleClick = () => setShow(!show);
   const dispatch = useAppDispatch();
-  const { auth, error, loader } = useAppSelector((state) => state.auth);
+  const { auth } = useAppSelector((state) => state.auth);
+  const [cookies, setCookie] = useCookies(['auth'])
 
   const formik = useFormik({
     initialValues: {
@@ -59,6 +62,21 @@ function SignIn() {
       dispatch(login(values))
     },
   });
+
+  useEffect(() => {
+
+    if (auth.id !== '') {
+      setCookie('auth', {
+        auth,
+        expired: moment().add(1, 'days').format('YYYY-MM-DD HH:mm:ss')
+      }, { path: '/' })
+    }
+
+  }, [auth])
+
+  if (cookies.hasOwnProperty('auth')) {
+    return <Redirect from="/" to="/admin" />
+  }
 
   return (
     <DefaultAuth illustrationBackground={illustration} image={illustration}>

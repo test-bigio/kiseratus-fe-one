@@ -17,7 +17,14 @@ const initialState: authModel = {
 const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {},
+  reducers: {
+    setAuth: (state, action) => {
+      state.auth = action.payload
+    },
+    setEmptyAuth: (state) => {
+      state.auth = defaultAuth
+    }
+  },
   extraReducers: (builder) => {
     builder.addCase(login.pending, (state) => {
       state.error = ""
@@ -34,5 +41,7 @@ const authSlice = createSlice({
     })
   }
 });
+
+export const { setAuth } = authSlice.actions
 
 export default authSlice.reducer;
