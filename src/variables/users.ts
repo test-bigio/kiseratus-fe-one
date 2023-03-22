@@ -18,6 +18,12 @@ const users = [
     role: ["tukang-form-canggih", "tukang-tabel"],
   },
   {
+    id: "rara",
+    username: "rara",
+    password: "rara123",
+    role: ["tukang-grafik"]
+  },
+  {
     id: "kikoadmn",
     username: "kikoadmn",
     password: "kikoadmn",
