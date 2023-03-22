@@ -1,7 +1,11 @@
 // Chakra imports
 import {
   Box,
+  Button,
+  Divider,
   Flex,
+  Heading,
+  Input,
   SimpleGrid,
   Table,
   Tbody,
@@ -22,9 +26,33 @@ import { Field, Form, Formik } from "formik";
 
 export default function Table40() {
   // Chakra Color Mode
+  const columnHelper = createColumnHelper<Person>();
+  
+  let columns = [
+    columnHelper.accessor("firstName", {
+      header: "First Name",
+    }),
+    columnHelper.accessor((row) => row.lastName, {
+      header: "Last Name",
+    }),
+    columnHelper.accessor("age", {
+      header: "Age",
+    }),
+    columnHelper.accessor("visits", {
+      header: "Visits",
+    }),
+    columnHelper.accessor("status", {
+      header: "Status",
+    }),
+    columnHelper.accessor("progress", {
+      header: "Profile Progress",
+    }),
+  ];
 
   const [data, setData] = useState(() => [...defaultData]);
+  const [columnData, setColumnData] = useState(([]))
   const rerender = useReducer(() => ({}), {})[1];
+
 
   const table = useReactTable({
     data,
@@ -34,12 +62,11 @@ export default function Table40() {
 
   return (
     <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
-      <Flex direction="column">
+      <Flex direction="column" w='50%' sx={{ marginBottom: 10 }}>
         <Formik
           initialValues={{
-            firstName: "",
-            lastName: "",
-            email: "",
+            kolom: "",
+            baris: "",
           }}
           onSubmit={async (values) => {
             await new Promise((r) => setTimeout(r, 500));
@@ -47,23 +74,21 @@ export default function Table40() {
           }}
         >
           <Form>
-            <label htmlFor="firstName">First Name</label>
-            <Field id="firstName" name="firstName" placeholder="Jane" />
+            <Heading>Tabel Configurasi</Heading>
+            <Flex direction="column" sx={{ marginBottom: 4 }}>
+              <label htmlFor="kolom">Kolom</label>
+              <Input id="kolom" name="kolom" placeholder="kolom" />
 
-            <label htmlFor="lastName">Last Name</label>
-            <Field id="lastName" name="lastName" placeholder="Doe" />
-
-            <label htmlFor="email">Email</label>
-            <Field
-              id="email"
-              name="email"
-              placeholder="jane@acme.com"
-              type="email"
-            />
-            <button type="submit">Submit</button>
+              <label htmlFor="baris">Jumlah Baris</label>
+              <Input id="baris" name="baris" placeholder="baris" />
+            </Flex>
+            <Button variant="solid" colorScheme="blue" type="submit">
+              Submit
+            </Button>
           </Form>
         </Formik>
       </Flex>
+      <Heading>TABEL</Heading>
       <Table variant="striped" colorScheme="teal">
         <Thead>
           {table.getHeaderGroups().map((headerGroup) => (
@@ -128,31 +153,7 @@ const defaultData: Person[] = [
   },
 ];
 
-const columnHelper = createColumnHelper<Person>();
 
-const columns = [
-  columnHelper.accessor("firstName", {
-    cell: (info) => info.getValue(),
-  }),
-  columnHelper.accessor((row) => row.lastName, {
-    id: "lastName",
-    cell: (info) => <i>{info.getValue()}</i>,
-    header: () => <span>Last Name</span>,
-  }),
-  columnHelper.accessor("age", {
-    header: () => "Age",
-    cell: (info) => info.renderValue(),
-  }),
-  columnHelper.accessor("visits", {
-    header: () => <span>Visits</span>,
-  }),
-  columnHelper.accessor("status", {
-    header: "Status",
-  }),
-  columnHelper.accessor("progress", {
-    header: "Profile Progress",
-  }),
-];
 
 type Person = {
   firstName: string;
