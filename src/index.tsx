@@ -9,6 +9,7 @@ import { ChakraProvider } from '@chakra-ui/react';
 import theme from './theme/theme';
 import { Provider } from 'react-redux'
 import {store} from './stores'
+import 'react-toastify/dist/ReactToastify.css';
 
 ReactDOM.render(
 	<ChakraProvider theme={theme}>
