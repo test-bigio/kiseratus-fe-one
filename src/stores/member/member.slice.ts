@@ -28,6 +28,11 @@ const memberSlice = createSlice({
     reducers: {
         addMember: (state, action) => {
             state.members.push(action.payload)
+        },
+        removeMember: (state, action) => {
+            state.members = state.members.filter(
+                (member) => member.id !== action.payload
+            )
         }
     },
     extraReducers: (builder) => {
@@ -46,6 +51,6 @@ const memberSlice = createSlice({
     }
 })
 
-export const { addMember } = memberSlice.actions
+export const { addMember, removeMember } = memberSlice.actions
 
 export default memberSlice.reducer

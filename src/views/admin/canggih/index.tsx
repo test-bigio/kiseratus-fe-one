@@ -8,15 +8,11 @@ const Canggih = () => {
   const dispatch = useAppDispatch();
   const { members } = useAppSelector((state) => state.member);
 
-  console.log('members', members)
+  // console.log('members', members)
 
   return (
     <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
-      {
-        members.length > 0 && (
-          <MemberTable tableData={members} />
-        )
-      }
+      <MemberTable tableData={members} />
     </Box>
   );
 };

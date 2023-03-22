@@ -25,14 +25,18 @@ import {
 import Card from "components/card/Card";
 import Menu from "components/menu/MainMenu";
 import * as React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
+import { useAppDispatch } from "stores/hooks";
+import { removeMember } from "stores/member/member.slice";
 // Assets
 
 type RowObj = {
+  id: string;
   nama: string;
   usia: number;
   statusPerkawinan: string;
   pekerjaan: string;
+  actions: string;
 };
 
 const columnHelper = createColumnHelper<RowObj>();
@@ -40,10 +44,16 @@ const columnHelper = createColumnHelper<RowObj>();
 // const columns = columnsDataCheck;
 export default function MemberTable(props: { tableData: any }) {
   const { tableData } = props;
+  const dispatch = useAppDispatch()
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const textColor = useColorModeValue("secondaryGray.900", "white");
   const borderColor = useColorModeValue("gray.200", "whiteAlpha.100");
   let defaultData = tableData;
+
+    const handleDelete = (id: any) => {
+      dispatch(removeMember(id))
+    }
+  
   const columns = [
     columnHelper.accessor("nama", {
       id: "nama",
@@ -125,8 +135,38 @@ export default function MemberTable(props: { tableData: any }) {
         </Flex>
       ),
     }),
+    // add a column for the actions
+    columnHelper.accessor("actions", {
+      id: "actions",
+      header: () => (
+        <Text
+          justifyContent="space-between"
+          align="center"
+          fontSize={{ sm: "10px", lg: "12px" }}
+          color="gray.400"
+        >
+          Actions
+        </Text>
+      ),
+      cell: (info) => {
+        return (
+          <Flex align="center">
+            <Button colorScheme="green" size="sm" mr="4"> Detail </Button>
+            <Button colorScheme="blue" size="sm" mr="4"> Edit </Button>
+            <Button colorScheme="red" size="sm" onClick={() => handleDelete(info.row.original.id)}> Delete </Button>
+          </Flex>
+        )
+      },
+    }),
   ];
+
   const [data, setData] = React.useState(() => [...defaultData]);
+
+  React.useEffect(() => {
+    setData([...defaultData]);
+  }, [defaultData]);
+
+  console.log('data', data)
   const table = useReactTable({
     data,
     columns,

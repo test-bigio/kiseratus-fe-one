@@ -33,6 +33,7 @@ const CreateCanggih = () => {
 			uploadFoto: "https://i.imgur.com/4Yq2X7a.jpg",
 		},
 		onSubmit: values => {
+			values.id = values.nama.trim().replace(/\s+/g, '-').toLowerCase()
 			dispatch(addMember(values))
 			history.push('/admin/canggih')
 		}
