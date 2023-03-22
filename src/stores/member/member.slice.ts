@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { getMembers } from './member.action'
 import { Member, MemberModel } from './member.type'
+import members from 'variables/member'
 
 const defaultMember: Member = {
     id: '',
@@ -14,7 +15,7 @@ const defaultMember: Member = {
 }
 
 const initialState: MemberModel = {
-    members: [],
+    members: members,
     member: defaultMember,
     loading: false,
     error: '',
@@ -24,7 +25,11 @@ const initialState: MemberModel = {
 const memberSlice = createSlice({
     name: 'member',
     initialState,
-    reducers: {},
+    reducers: {
+        addMember: (state, action) => {
+            state.members.push(action.payload)
+        }
+    },
     extraReducers: (builder) => {
         builder.addCase(getMembers.pending, (state) => {
             state.error = ''
@@ -40,5 +45,7 @@ const memberSlice = createSlice({
         })
     }
 })
+
+export const { addMember } = memberSlice.actions
 
 export default memberSlice.reducer
