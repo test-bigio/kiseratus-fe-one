@@ -16,8 +16,8 @@ import Card from 'components/card/Card';
 import ConfigurationForm from "./components/ConfigurationForm";
 import UnikForm from "./components/UnikForm";
 
-import formConfiguration from "./variables/formConfiguration";
-import unikDatas from "./variables/unikDatas";
+import { useAppDispatch, useAppSelector } from 'stores/hooks'
+import {RootState} from "../../../stores";
 
 export default function UnikComponent() {
     const {
@@ -37,6 +37,9 @@ export default function UnikComponent() {
         onOpen: onOpenConfModal,
         onClose: onCloseConfModal,
     } = useDisclosure();
+
+    const unikDatas = useAppSelector((state:RootState) => state.unikForm.unikDatas)
+    const confDatas = useAppSelector((state:RootState) => state.confFormStore.confFormDatas)
 
     const textColorSecondary = useColorModeValue('secondaryGray.600', 'white');
     const boxBg = useColorModeValue('secondaryGray.300', 'whiteAlpha.100');
@@ -80,13 +83,13 @@ export default function UnikComponent() {
             </SimpleGrid>
 
             <ConfigurationForm
-                configurationData={formConfiguration}
+                configurationData={confDatas}
                 isOpen={isOpenConfModal}
                 onClose={onCloseConfModal}
             ></ConfigurationForm>
 
             <UnikForm
-                configurationData={formConfiguration}
+                configurationData={confDatas}
                 isSubmit={true}
                 title={'Form Tambah'}
                 isOpen={isOpenCreateModal}
@@ -94,7 +97,7 @@ export default function UnikComponent() {
             ></UnikForm>
 
             <UnikForm
-                configurationData={formConfiguration}
+                configurationData={confDatas}
                 isSubmit={false}
                 title={'Form Preview'}
                 isOpen={isOpenPreviewModal}
