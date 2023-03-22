@@ -8,10 +8,6 @@ const Canggih = () => {
   const dispatch = useAppDispatch();
   const { members } = useAppSelector((state) => state.member);
 
-  useEffect(() => {
-    dispatch(getMembers())
-  }, [dispatch])
-
   console.log('members', members)
 
   return (

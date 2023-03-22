@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Flex,
   Icon,
   Progress,
@@ -24,6 +25,7 @@ import {
 import Card from "components/card/Card";
 import Menu from "components/menu/MainMenu";
 import * as React from "react";
+import { NavLink } from "react-router-dom";
 // Assets
 
 type RowObj = {
@@ -151,8 +153,10 @@ export default function MemberTable(props: { tableData: any }) {
           lineHeight="100%"
         >
           List Member
-        </Text>
-        <Menu />
+				</Text>
+				<NavLink to="/admin/canggih/tambah" >
+					<Button colorScheme='blue'>Tambah</Button>
+				</NavLink>
       </Flex>
       <Box>
         <Table variant="simple" color="gray.500" mb="24px" mt="12px">
