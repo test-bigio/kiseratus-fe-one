@@ -38,8 +38,8 @@ function SignIn() {
   const dispatch = useAppDispatch();
   const { auth, error } = useAppSelector((state) => state.auth);
   const [cookies, setCookie] = useCookies(['auth']);
-  const notify = () => toast.error(error, {
-    toastId: "error"
+  const notifyError = () => toast.error(error, {
+    toastId: "customId"
   });
 
 
@@ -52,7 +52,7 @@ function SignIn() {
     onSubmit: (values) => {
       dispatch(login(values))
       if (error) {
-        notify();
+        notifyError();
       }
     },
   });

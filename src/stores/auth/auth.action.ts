@@ -10,6 +10,10 @@ export const login = createAsyncThunk(
       throw new Error("Pengguna tidak ditemukan");
     }
 
+    if (user.role.length == 0) {
+      throw new Error("Akun belum memiliki peran");
+    }
+
     if (user.password !== payload.password) {
       throw new Error("Password tidak sesuai");
     }

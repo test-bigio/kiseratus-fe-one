@@ -23,6 +23,12 @@ const users = [
     password: "kikoadmn",
     role: ["tukang-segala-tukang"],
   },
+  {
+    id: "user", // untuk yg tidak punya role
+    username: "user",
+    password: "user",
+    role: [],
+  },
 ];
 
 export default users;
