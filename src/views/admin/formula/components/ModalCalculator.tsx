@@ -1,5 +1,5 @@
-import { RootState } from '../../../../stores/'
-import { hideModal, write, remove } from '../../../../stores/formula/formulaSlice'
+import { RootState } from 'stores/'
+import { hideModal, write, remove, setResult } from 'stores/formula/formulaSlice'
 
 import {
   Modal,
@@ -19,7 +19,6 @@ import { useAppDispatch, useAppSelector } from 'stores/hooks'
 
 
 const ModalCalculator= () => {
-
   const modal = useAppSelector((state:RootState) => state.formula.showModal)
   const calculation = useAppSelector((state:RootState) => state.formula.calculation)
   const dispatch = useAppDispatch()
@@ -65,6 +64,51 @@ const ModalCalculator= () => {
     }
   }
 
+  const doCalculation = (calculation: string) => {
+    let arr = calculation.split('')
+    let num = ''
+
+    for(let i = 0; i < calculation.length; i++) {
+      let char = calculation.charAt(i)
+      switch (char) {
+        case '+':
+        case 'x':
+        case '-':
+        case '/':
+          arr.push(num)
+          arr.push(char)
+          num = ''
+          break
+        default:
+          num += char
+          break
+      }
+    }
+    arr.push(num)
+
+    let hasil = parseInt(arr[0])
+    for(let i = 1; i < arr.length; i += 2) {
+      switch (arr[i]) {
+        case '+':
+          hasil += parseInt(arr[i+1])
+          break
+        case 'x':
+          hasil *= parseInt(arr[i+1])
+          break
+        case '-':
+          hasil -= parseInt(arr[i+1])
+          break
+        case '/':
+          hasil /= parseInt(arr[i+1])
+          break
+      }
+    }
+    if(!hasil){
+      return 0
+    }
+    return hasil
+  }
+
   return (
     <>
       <Modal isOpen={modal} onClose={() => dispatch(hideModal())}>
@@ -100,13 +144,21 @@ const ModalCalculator= () => {
               <GridItem rowSpan={1} colSpan={2} bg={buttonClearBg} p={4} border='1px' borderColor='gray.100' cursor={'pointer'} onClick={() => dispatch(remove())}>
                 <Center>C</Center> 
               </GridItem>
-              <GridItem rowSpan={1} colSpan={2} bg={buttonEqualBg} p={4} border='1px' borderColor='gray.100' cursor={'pointer'}>
+              <GridItem rowSpan={1} colSpan={2} bg={buttonEqualBg} p={4} border='1px' borderColor='gray.100' cursor={'not-allowed'}>
                 <Center>=</Center>
               </GridItem>
             </Grid>
           </ModalBody>
           <ModalFooter>
-            <Button variant='ghost' onClick={() => dispatch(hideModal())}>Close</Button>
+            <Button 
+              variant='solid' 
+              onClick={() => {
+                dispatch(setResult(doCalculation(calculation)))
+                dispatch(hideModal())
+              }}
+            >
+              Simpan
+            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
