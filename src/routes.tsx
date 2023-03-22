@@ -3,6 +3,7 @@ import { MdBarChart, MdPerson, MdHome, MdLock, MdOutlineShoppingCart, MdOutlineC
 
 // Admin Imports
 import MainDashboard from 'views/admin/default';
+import UnikComponent from "./views/admin/unik";
 import NFTMarketplace from 'views/admin/marketplace';
 import Formula from 'views/admin/formula';
 import Profile from 'views/admin/profile';
@@ -23,6 +24,15 @@ const routes = [
 		icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
 		component: Dashboard,
 		role: ["tukang-jadwal", "tukang-keluarga", "tukang-form-unik", "tukang-formula", "tukang-form-canggih", "tukang-tabel", "tukang-segala-tukang"]
+	},
+
+	{
+		name: 'Form Unik',
+		layout: '/admin',
+		path: '/unik',
+		icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
+		component: UnikComponent,
+		role: ["tukang-form-unik"]
 	},
 	// {
 	// 	name: 'NFT Marketplace',
@@ -46,7 +56,7 @@ const routes = [
 		path: '/jadwal',
 		icon: <Icon as={MdDateRange} width='20px' height='20px' color='inherit'/>,
 		component: Jadwal,
-		role: ['tukang-jadwal']
+		role: ['tukang-jadwal', 'tukang-tabel']
 	},
 	{
 		name: 'Halaman Informasi',
