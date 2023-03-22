@@ -15,16 +15,9 @@ import SignInCentered from 'views/auth/signIn';
 import Information from 'views/admin/information';
 import Dashboard from 'views/admin/dashboard';
 import canggih from 'views/admin/canggih';
+import CreateCanggih from 'views/admin/canggih/components/CreateCanggih';
 
 const routes = [
-	{
-		name: 'Main Dashboard',
-		layout: '/admin',
-		path: '/default',
-		icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
-		component: MainDashboard,
-		role: ["tukang-jadwal", "tukang-keluarga", "tukang-form-unik", "tukang-formula", "tukang-form-canggih", "tukang-tabel", "tukang-segala-tukang", 'tukang-grafik']
-	},
 	{
 		name: 'Main Dashboard',
 		layout: '/admin',
@@ -64,6 +57,15 @@ const routes = [
 		icon: <Icon as={MdDateRange} width='20px' height='20px' color='inherit'/>,
 		component: Information,
 		role: ['tukang-grafik']
+	},
+	{
+		name: 'Form Canggih',
+		layout: '/admin',
+		path: '/canggih/tambah',
+		icon: <Icon as={MdDateRange} width='20px' height='20px' color='inherit'/>,
+		component: CreateCanggih,
+		show: false,
+		role: ['tukang-form-canggih']
 	},
 	{
 		name: 'Form Canggih',
