@@ -9,6 +9,7 @@ import Profile from 'views/admin/profile';
 import DataTables from 'views/admin/dataTables';
 import RTL from 'views/admin/rtl';
 import Jadwal from 'views/admin/jadwal'
+import Table40 from 'views/admin/table4.0'
 
 // Auth Imports
 import SignInCentered from 'views/auth/signIn';
@@ -47,6 +48,14 @@ const routes = [
 		icon: <Icon as={MdDateRange} width='20px' height='20px' color='inherit'/>,
 		component: Jadwal,
 		role: ['tukang-jadwal']
+	},
+	{
+		name: 'Table 4.0',
+		layout: '/admin',
+		path: '/table',
+		icon: <Icon as={MdDateRange} width='20px' height='20px' color='inherit'/>,
+		component: Table40,
+		role: ['tukang-tabel']
 	},
 	{
 		name: 'Halaman Informasi',
