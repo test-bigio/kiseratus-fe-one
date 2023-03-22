@@ -3,11 +3,8 @@ import { MdBarChart, MdPerson, MdHome, MdLock, MdOutlineShoppingCart, MdOutlineC
 
 // Admin Imports
 import MainDashboard from 'views/admin/default';
-import NFTMarketplace from 'views/admin/marketplace';
 import Formula from 'views/admin/formula';
-import Profile from 'views/admin/profile';
-import DataTables from 'views/admin/dataTables';
-import RTL from 'views/admin/rtl';
+import Jadwal40 from 'views/admin/jadwal4.0/Jadwal4.0';
 
 // Auth Imports
 import SignInCentered from 'views/auth/signIn';
@@ -21,14 +18,30 @@ const routes = [
 		component: MainDashboard,
 		role: ["tukang-jadwal", "tukang-keluarga", "tukang-form-unik", "tukang-formula", "tukang-form-canggih", "tukang-tabel", "tukang-segala-tukang"]
 	},
-	// {
-	// 	name: 'NFT Marketplace',
-	// 	layout: '/admin',
-	// 	path: '/nft-marketplace',
-	// 	icon: <Icon as={MdOutlineShoppingCart} width='20px' height='20px' color='inherit' />,
-	// 	component: NFTMarketplace,
-	// 	secondary: true
-	// },
+  {
+    name: "Jadwal 4.0",
+    layout: "/admin",
+    path: "/jadwal40",
+    icon: (
+      <Icon
+        as={MdOutlineShoppingCart}
+        width="20px"
+        height="20px"
+        color="inherit"
+      />
+    ),
+    component: Jadwal40,
+    secondary: true,
+    role: [
+      "tukang-jadwal",
+      "tukang-keluarga",
+      "tukang-form-unik",
+      "tukang-formula",
+      "tukang-form-canggih",
+      "tukang-tabel",
+      "tukang-segala-tukang",
+    ],
+  },
 	{
 		name: 'Formula',
 		layout: '/admin',
@@ -37,20 +50,6 @@ const routes = [
 		component: Formula,
 		role: ['tukang-formula']
 	},
-	// {
-	// 	name: 'Data Tables',
-	// 	layout: '/admin',
-	// 	icon: <Icon as={MdBarChart} width='20px' height='20px' color='inherit' />,
-	// 	path: '/data-tables',
-	// 	component: DataTables
-	// },
-	// {
-	// 	name: 'Profile',
-	// 	layout: '/admin',
-	// 	path: '/profile',
-	// 	icon: <Icon as={MdPerson} width='20px' height='20px' color='inherit' />,
-	// 	component: Profile
-	// },
 	{
 		name: 'Sign In',
 		layout: '/auth',
@@ -58,13 +57,6 @@ const routes = [
 		icon: <Icon as={MdLock} width='20px' height='20px' color='inherit' />,
 		component: SignInCentered
 	},
-	// {
-	// 	name: 'RTL Admin',
-	// 	layout: '/rtl',
-	// 	path: '/rtl-default',
-	// 	icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
-	// 	component: RTL
-	// }
 ];
 
 export default routes;
