@@ -26,7 +26,7 @@ import { Field, Form, Formik } from "formik";
 
 export default function Table40() {
   // Chakra Color Mode
-  const columnHelper = createColumnHelper<Person>();
+  const columnHelper = createColumnHelper<any>();
   
   let columns:any = [
     columnHelper.accessor("firstName", {
@@ -49,10 +49,8 @@ export default function Table40() {
     }),
   ];
 
-  const [data, setData] = useState(() => [...defaultData]);
-  const [columnData, setColumnData] = useState<any>([])
+  const [data] = useState(() => [...defaultData]);
   const rerender = useReducer(() => ({}), {})[1];
-
 
   const table = useReactTable({
     data,
@@ -60,38 +58,9 @@ export default function Table40() {
     getCoreRowModel: getCoreRowModel(),
   });
 
-  return (
-    <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
-      <Flex direction="column" w='50%' sx={{ marginBottom: 10 }}>
-        <Formik
-          initialValues={{
-            kolom: "",
-            baris: "",
-          }}
-          onSubmit={async (values) => {
-            await new Promise((r) => setTimeout(r, 500));
-            alert(JSON.stringify(values, null, 2));
-          }}
-        >
-          {({ handleSubmit, handleChange, handleBlur, values, errors }) => (
-          <Form>
-            <Heading>Tabel Configurasi</Heading>
-            <Flex direction="column" sx={{ marginBottom: 4 }}>
-              <label htmlFor="kolom">Kolom</label>
-              <Input id="kolom" name="kolom" onChange={handleChange} value={values.kolom} placeholder="kolom" />
-
-              <label htmlFor="baris">Jumlah Baris</label>
-              <Input id="baris" name="baris" placeholder="baris" onChange={handleChange} value={values.baris} />
-            </Flex>
-            <Button variant="solid" colorScheme="blue" type="submit">
-              Submit
-            </Button>
-          </Form>
-          )}
-        </Formik>
-      </Flex>
-      <Heading>TABEL</Heading>
-      <Table variant="striped" colorScheme="teal">
+  const tabel40 = useMemo(() => {
+    return (
+    <Table variant="striped" colorScheme="teal">
         <Thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <Tr key={headerGroup.id}>
@@ -120,6 +89,49 @@ export default function Table40() {
           ))}
         </Tbody>
       </Table>
+  )
+},[columns])
+
+  return (
+    <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
+      <Flex direction="column" w='50%' sx={{ marginBottom: 10 }}>
+        <Formik
+          initialValues={{
+            kolom: "",
+            header: "",
+            baris: "",
+          }}
+          onSubmit={async (values) => {
+            columns.push(
+              columnHelper.accessor(values.kolom, {
+                header: values.header,
+              })
+            )
+            // return setColumnData(values)
+          }}
+        >
+          {({ handleSubmit, handleChange, handleBlur, values, errors }) => (
+          <Form>
+            <Heading>Tabel Configurasi</Heading>
+            <Flex direction="column" sx={{ marginBottom: 4 }}>
+              <label htmlFor="kolom">Kolom</label>
+              <Input id="kolom" name="kolom" onChange={handleChange} value={values.kolom} placeholder="kolom" />
+
+              <label htmlFor="header">Header</label>
+              <Input id="header" name="header" onChange={handleChange} value={values.header} placeholder="header" />
+
+              <label htmlFor="baris">Jumlah Baris</label>
+              <Input id="baris" name="baris" placeholder="baris" onChange={handleChange} value={values.baris} />
+            </Flex>
+            <Button variant="solid" colorScheme="blue" type="submit">
+              Submit
+            </Button>
+          </Form>
+          )}
+        </Formik>
+      </Flex>
+      <Heading>TABEL</Heading>
+      {tabel40}
       <div className="h-4" />
       <button onClick={() => rerender()} className="border p-2">
         Rerender
@@ -128,7 +140,7 @@ export default function Table40() {
   );
 }
 
-const defaultData: Person[] = [
+const defaultData: any = [
   {
     firstName: "tanner",
     lastName: "linsley",
@@ -156,12 +168,3 @@ const defaultData: Person[] = [
 ];
 
 
-
-type Person = {
-  firstName: string;
-  lastName: string;
-  age: number;
-  visits: number;
-  status: string;
-  progress: number;
-};
