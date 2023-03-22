@@ -27,7 +27,7 @@ import { IoMdMoon, IoMdSunny } from "react-icons/io";
 import { FaEthereum } from "react-icons/fa";
 import routes from "routes";
 import { useCookies } from "react-cookie";
-import { useAppDispatch } from "stores/hooks";
+import { useAppDispatch, useAppSelector } from "stores/hooks";
 export default function HeaderLinks(props: { secondary: boolean }) {
   const { secondary } = props;
   const { colorMode, toggleColorMode } = useColorMode();
@@ -52,6 +52,8 @@ export default function HeaderLinks(props: { secondary: boolean }) {
     dispatch({ type: "auth/setEmptyAuth" });
     removeCookie("auth", { path: "/" });
   };
+
+  const { auth } = useAppSelector((state) => state.auth);
 
   return (
     <Flex
@@ -109,7 +111,7 @@ export default function HeaderLinks(props: { secondary: boolean }) {
         </Text>
       </Flex>
       <SidebarResponsive routes={routes} />
-      <Menu>
+      {/* <Menu>
         <MenuButton p="0px">
           <Icon
             mt="6px"
@@ -166,9 +168,9 @@ export default function HeaderLinks(props: { secondary: boolean }) {
             </MenuItem>
           </Flex>
         </MenuList>
-      </Menu>
+      </Menu> */}
 
-      <Menu>
+      {/* <Menu>
         <MenuButton p="0px">
           <Icon
             mt="6px"
@@ -228,7 +230,7 @@ export default function HeaderLinks(props: { secondary: boolean }) {
             </Link>
           </Flex>
         </MenuList>
-      </Menu>
+      </Menu> */}
 
       <Button
         variant="no-hover"
@@ -253,7 +255,7 @@ export default function HeaderLinks(props: { secondary: boolean }) {
           <Avatar
             _hover={{ cursor: "pointer" }}
             color="white"
-            name="Adela Parkson"
+            name={auth.username}
             bg="#11047A"
             size="sm"
             w="40px"
@@ -280,11 +282,11 @@ export default function HeaderLinks(props: { secondary: boolean }) {
               fontWeight="700"
               color={textColor}
             >
-              👋&nbsp; Hey, Adela
+              👋&nbsp; Hey, { auth.username }
             </Text>
           </Flex>
           <Flex flexDirection="column" p="10px">
-            <MenuItem
+            {/* <MenuItem
               _hover={{ bg: "none" }}
               _focus={{ bg: "none" }}
               borderRadius="8px"
@@ -299,7 +301,7 @@ export default function HeaderLinks(props: { secondary: boolean }) {
               px="14px"
             >
               <Text fontSize="sm">Newsletter Settings</Text>
-            </MenuItem>
+            </MenuItem> */}
             <MenuItem
               _hover={{ bg: "none" }}
               _focus={{ bg: "none" }}
