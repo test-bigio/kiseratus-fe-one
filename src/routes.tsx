@@ -12,6 +12,7 @@ import Jadwal from 'views/admin/jadwal'
 
 // Auth Imports
 import SignInCentered from 'views/auth/signIn';
+import Information from 'views/admin/information';
 
 const routes = [
 	{
@@ -45,6 +46,14 @@ const routes = [
 		icon: <Icon as={MdDateRange} width='20px' height='20px' color='inherit'/>,
 		component: Jadwal,
 		role: ['tukang-jadwal']
+	},
+	{
+		name: 'Halaman Informasi',
+		layout: '/admin',
+		path: '/informasi',
+		icon: <Icon as={MdDateRange} width='20px' height='20px' color='inherit'/>,
+		component: Information,
+		role: ['tukang-grafik']
 	},
 	// {
 	// 	name: 'Data Tables',
