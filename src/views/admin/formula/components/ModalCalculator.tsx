@@ -1,7 +1,5 @@
-import { useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../../../stores/'
-import { hideModal } from '../../../../stores/formula/formulaSlice'
+import { hideModal, write, remove } from '../../../../stores/formula/formulaSlice'
 
 import {
   Modal,
@@ -17,12 +15,14 @@ import {
   useColorModeValue,
   Center
 } from '@chakra-ui/react'
+import { useAppDispatch, useAppSelector } from 'stores/hooks'
 
 
 const ModalCalculator= () => {
 
-  const modal = useSelector((state:RootState) => state.formula.showModal)
-  const dispatch = useDispatch()
+  const modal = useAppSelector((state:RootState) => state.formula.showModal)
+  const calculation = useAppSelector((state:RootState) => state.formula.calculation)
+  const dispatch = useAppDispatch()
 
   const textColor = useColorModeValue("white", "black")
   const resultBarBg = useColorModeValue("gray.700", "white")
@@ -31,8 +31,6 @@ const ModalCalculator= () => {
   const buttonNumberBg = useColorModeValue("gray.400", "white")
   const buttonClearBg = useColorModeValue("blue.400", "white")
   const buttonEqualBg = useColorModeValue("red.400", "white")
-
-  const [calculation, setCalculation] = useState<string>('')
 
   const renderNumber = (n:number) => {
     if(n%4 !== 0){
@@ -53,13 +51,18 @@ const ModalCalculator= () => {
 
   const handleClick = (input:string | number) => {
     const formula = ['+', '-', '/', 'x']
-    setCalculation((prev) => {
-      const lastChar = prev.split('').at(-1)
+    const newCalc = () => {
+      const lastChar = calculation.split('').at(-1)
       if(formula.includes(lastChar) && formula.includes(input.toString())){
-        return prev
-      } 
-      return prev+=input
-    })
+        return
+      } else if(formula.includes(input.toString()) && calculation === ''){
+        return
+      }
+      return input
+    }
+    if(newCalc()){
+      dispatch(write(newCalc()))
+    }
   }
 
   return (
@@ -85,16 +88,16 @@ const ModalCalculator= () => {
                   </GridItem> 
                 )
               )}
-              <GridItem rowSpan={1} colSpan={2} bg={buttonNumberBg} p={4} border='1px' borderColor='gray.100' cursor={'pointer'}>
+              <GridItem rowSpan={1} colSpan={2} bg={buttonNumberBg} p={4} border='1px' borderColor='gray.100' cursor={'pointer'} onClick={() => dispatch(write(0))}>
                 <Center>0</Center> 
               </GridItem>
               <GridItem rowSpan={1} colSpan={1} bg={buttonNumberBg} p={4} border='1px' borderColor='gray.100' cursor={'pointer'}>
                 <Center>.</Center> 
               </GridItem>
-              <GridItem rowSpan={1} colSpan={1} bg={CalcButtonBg} p={4} border='1px' borderColor='gray.100' cursor={'pointer'}>
+              <GridItem rowSpan={1} colSpan={1} bg={CalcButtonBg} p={4} border='1px' borderColor='gray.100' cursor={'pointer'} onClick={() => handleClick('/')}>
                 <Center>/</Center> 
               </GridItem>
-              <GridItem rowSpan={1} colSpan={2} bg={buttonClearBg} p={4} border='1px' borderColor='gray.100' cursor={'pointer'}>
+              <GridItem rowSpan={1} colSpan={2} bg={buttonClearBg} p={4} border='1px' borderColor='gray.100' cursor={'pointer'} onClick={() => dispatch(remove())}>
                 <Center>C</Center> 
               </GridItem>
               <GridItem rowSpan={1} colSpan={2} bg={buttonEqualBg} p={4} border='1px' borderColor='gray.100' cursor={'pointer'}>
@@ -104,9 +107,6 @@ const ModalCalculator= () => {
           </ModalBody>
           <ModalFooter>
             <Button variant='ghost' onClick={() => dispatch(hideModal())}>Close</Button>
-            <Button colorScheme='blue' mr={3}>
-              Create
-            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>

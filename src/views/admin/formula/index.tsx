@@ -5,7 +5,6 @@ import CreateFormula from 'views/admin/formula/components/CreateFormula';
 import ModalCalculator from './components/ModalCalculator'
 
 const Index = () => {
-
   return (
     <>
       <Box pt={{ base: '180px', md: '80px', xl: '80px' }}>

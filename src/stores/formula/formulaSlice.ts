@@ -4,11 +4,14 @@ export const formulaSlice = createSlice({
   name: "formula",
   initialState: {
     showModal: false,
-    formula: "",
+    calculation: "",
   },
   reducers: {
     write: (state, action) => {
-      state.formula += action.payload;
+      state.calculation += action.payload;
+    },
+    remove: (state) => {
+      state.calculation = ''
     },
     showModal: (state) => {
       state.showModal = true;
@@ -19,6 +22,6 @@ export const formulaSlice = createSlice({
   },
 });
 
-export const { write, showModal, hideModal } = formulaSlice.actions;
+export const { write, showModal, hideModal, remove } = formulaSlice.actions;
 
 export default formulaSlice.reducer;
