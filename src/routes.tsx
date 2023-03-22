@@ -56,7 +56,7 @@ const routes = [
 		path: '/jadwal',
 		icon: <Icon as={MdDateRange} width='20px' height='20px' color='inherit'/>,
 		component: Jadwal,
-		role: ['tukang-jadwal', 'tukang-tabel']
+		role: ['tukang-jadwal']
 	},
 	{
 		name: 'Halaman Informasi',
