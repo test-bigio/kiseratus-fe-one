@@ -6,6 +6,8 @@ import { EventContent } from "./EventContent";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "stores";
 import { useAppSelector } from "stores/hooks";
+import {DateSelectArg} from '@fullcalendar/core'
+import interactionPlugin from '@fullcalendar/interaction'
 
 
 const Jadwal40 = () => {
@@ -19,17 +21,23 @@ const Jadwal40 = () => {
     
   }
 
+  function handleSelect(e: DateSelectArg) {
+    console.log("🚀 ~ file: Jadwal4.0.tsx:24 ~ handleSelect ~ e:", e)
+    
+  }
+
   return (
     <Box pt={{ base: "130px", md: "80px", xl: "80px" }}>
       <FullCalendar
-        plugins={[dayGridPlugin]}
+        plugins={[dayGridPlugin, interactionPlugin]}
         initialView="dayGridMonth"
         editable={true}
         selectable={true}
         dayMaxEvents={true}
-        eventContent={EventContent}
+        eventContent={EventContent} 
         eventAdd={handleAdd}
         events={event}
+        select={(e) => handleSelect(e)}
       />
       ;
     </Box>
