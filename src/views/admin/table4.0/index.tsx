@@ -49,12 +49,13 @@ export default function Table40() {
     }),
   ];
 
-  const [data] = useState(() => [...defaultData]);
+  const [kolom, setKolom] = useState(columns)
+  const [data] = useState([...defaultData]);
   const rerender = useReducer(() => ({}), {})[1];
 
   const table = useReactTable({
     data,
-    columns,
+    columns: kolom.map((el:any) => columnHelper.accessor(el.accessorKey, {header: el.header}) ),
     getCoreRowModel: getCoreRowModel(),
   });
 
@@ -102,11 +103,10 @@ export default function Table40() {
             baris: "",
           }}
           onSubmit={async (values) => {
-            columns.push(
-              columnHelper.accessor(values.kolom, {
-                header: values.header,
-              })
-            )
+            setKolom((p:any) => [...p, {
+                "header": values.header,
+                "accessorKey": values.kolom
+            }])
             // return setColumnData(values)
           }}
         >
