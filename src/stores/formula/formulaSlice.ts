@@ -5,6 +5,7 @@ export const formulaSlice = createSlice({
   initialState: {
     showModal: false,
     calculation: "",
+    result: 0
   },
   reducers: {
     write: (state, action) => {
@@ -19,9 +20,12 @@ export const formulaSlice = createSlice({
     hideModal: (state) => {
       state.showModal = false;
     },
+    setResult: (state, action) => {
+      state.result = action.payload
+    }
   },
 });
 
-export const { write, showModal, hideModal, remove } = formulaSlice.actions;
+export const { write, showModal, hideModal, remove, setResult } = formulaSlice.actions;
 
 export default formulaSlice.reducer;
