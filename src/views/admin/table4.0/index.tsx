@@ -28,7 +28,7 @@ export default function Table40() {
   // Chakra Color Mode
   const columnHelper = createColumnHelper<Person>();
   
-  let columns = [
+  let columns:any = [
     columnHelper.accessor("firstName", {
       header: "First Name",
     }),
@@ -50,7 +50,7 @@ export default function Table40() {
   ];
 
   const [data, setData] = useState(() => [...defaultData]);
-  const [columnData, setColumnData] = useState(([]))
+  const [columnData, setColumnData] = useState<any>([])
   const rerender = useReducer(() => ({}), {})[1];
 
 
@@ -73,19 +73,21 @@ export default function Table40() {
             alert(JSON.stringify(values, null, 2));
           }}
         >
+          {({ handleSubmit, handleChange, handleBlur, values, errors }) => (
           <Form>
             <Heading>Tabel Configurasi</Heading>
             <Flex direction="column" sx={{ marginBottom: 4 }}>
               <label htmlFor="kolom">Kolom</label>
-              <Input id="kolom" name="kolom" placeholder="kolom" />
+              <Input id="kolom" name="kolom" onChange={handleChange} value={values.kolom} placeholder="kolom" />
 
               <label htmlFor="baris">Jumlah Baris</label>
-              <Input id="baris" name="baris" placeholder="baris" />
+              <Input id="baris" name="baris" placeholder="baris" onChange={handleChange} value={values.baris} />
             </Flex>
             <Button variant="solid" colorScheme="blue" type="submit">
               Submit
             </Button>
           </Form>
+          )}
         </Formik>
       </Flex>
       <Heading>TABEL</Heading>
