@@ -6,29 +6,27 @@ import { EventContent } from "./EventContent";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "stores";
 import { useAppSelector } from "stores/hooks";
-import {DateSelectArg} from '@fullcalendar/core'
+import {DateSelectArg, EventClickArg} from '@fullcalendar/core'
 import interactionPlugin from '@fullcalendar/interaction'
 import { ModalCalendar } from "./Modal/ModalCalendar";
-import { showModal } from "stores/jadwal40.ts/jadwal40Slice";
+import { selecetedEvent, selectedDate, showModal } from "stores/jadwal40.ts/jadwal40Slice";
 
 
 const Jadwal40 = () => {
   const event = useAppSelector((state:RootState) => state.jadwal40.event)
-  console.log("🚀 ~ file: Jadwal4.0.tsx:13 ~ Jadwal40 ~ event:", event)
+  console.log("🚀 ~ file: Jadwal4.0.tsx:17 ~ Jadwal40 ~ event:", event)
   const { auth } = useAppSelector((state) => state.auth)
   const dispatch = useDispatch()
-  const { isOpen, onOpen, onClose } = useDisclosure();
 
-
-  function handleAdd(add: any) {
-    console.log(add.event.toPlainObject());
-    
-  }
 
   function handleSelect(e: DateSelectArg) {
     dispatch(showModal())
-    console.log("🚀 ~ file: Jadwal4.0.tsx:24 ~ handleSelect ~ e:", e)
-    
+    dispatch(selectedDate(e.startStr))
+  }
+
+  function handleClick(e: EventClickArg) {
+    dispatch(selecetedEvent(e.event._def.extendedProps))
+    dispatch(showModal())
   }
 
   return (
@@ -40,9 +38,9 @@ const Jadwal40 = () => {
         selectable={true}
         dayMaxEvents={true}
         eventContent={EventContent} 
-        eventAdd={handleAdd}
         events={event}
-        select={(e) => handleSelect(e)}
+        eventClick={handleClick}
+        select={handleSelect}
       />
       <ModalCalendar/>
     </Box>

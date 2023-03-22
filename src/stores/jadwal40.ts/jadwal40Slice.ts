@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { uniqueId } from "lodash";
 
 export const jadwal40Slice = createSlice({
   name: "jadwal40",
@@ -11,23 +10,34 @@ export const jadwal40Slice = createSlice({
       {eventId: 3, userid: 'randy', title: 'event randy', date: '2023-03-26'},
       {eventId: 4, userid: 'dimas', title: 'event dimas', date: '2023-03-26'},
     ],
+    selectedDate: '',
+    selecetedEvent: {}
   },
   reducers: {
     addEvent: (state, action) => {
-      state.event.push({...action.payload, eventId: uniqueId});
+      state.event.push({...action.payload, eventId: Math.random().toString(16).slice(2)});
     },
     deleteEvent: (state, action) => {
       state.event = state.event.filter(el => el.eventId !== action.payload.eventId);
+      state.showModal = false;
+      state.selecetedEvent = {}
+    },
+    selectedDate: (state, action) => {
+      state.selectedDate = action.payload
+    },
+    selecetedEvent: (state, action) => {
+      state.selecetedEvent = action.payload
     },
     showModal: (state) => {
       state.showModal = true;
     },
     closeModal: (state) => {
       state.showModal = false;
+      state.selecetedEvent = {}
     },
   },
 });
 
-export const { addEvent, deleteEvent, closeModal, showModal } = jadwal40Slice.actions;
+export const { addEvent, deleteEvent, closeModal, showModal, selectedDate, selecetedEvent } = jadwal40Slice.actions;
 
 export default jadwal40Slice.reducer;
