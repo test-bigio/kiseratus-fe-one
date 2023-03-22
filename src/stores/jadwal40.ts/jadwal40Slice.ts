@@ -22,12 +22,12 @@ export const jadwal40Slice = createSlice({
     showModal: (state) => {
       state.showModal = true;
     },
-    hideModal: (state) => {
+    closeModal: (state) => {
       state.showModal = false;
     },
   },
 });
 
-export const { addEvent, deleteEvent } = jadwal40Slice.actions;
+export const { addEvent, deleteEvent, closeModal, showModal } = jadwal40Slice.actions;
 
 export default jadwal40Slice.reducer;

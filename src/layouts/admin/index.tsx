@@ -73,9 +73,6 @@ export default function Dashboard(props: { [x: string]: any }) {
 
 	}, [cookies])
 
-	console.log('cookies admin', cookies)
-	console.log('auth admin', auth)
-
 	if (auth.id === '') {
 		return <Redirect from='/' to='/auth/sign-in' />
 	}
