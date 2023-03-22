@@ -10,14 +10,28 @@ import {
 } from "@chakra-ui/react"
 
 import TextDateConf from "./TextConf";
+import { useAppDispatch, useAppSelector } from 'stores/hooks'
+import {write} from "../redux/configurtionStore";
 
 import * as React from "react";
 
 export default function ConfigurationForm(props: { configurationData: any, isOpen: boolean, onClose: any }) {
-
+    const dispatch = useAppDispatch()
     const { configurationData, isOpen, onClose, } = props;
 
     const [ data ] = React.useState(() => [ ...configurationData ]);
+
+    const addRow = () => {
+        const newData = {
+            id: Date.now(),
+            type: '',
+            label: '',
+            maxSize: 0,
+            typeNumber: ''
+        }
+
+        dispatch(write(newData))
+    }
 
     return (
         <>
@@ -26,7 +40,7 @@ export default function ConfigurationForm(props: { configurationData: any, isOpe
                 <ModalContent>
                     <ModalHeader>Configuration Form</ModalHeader>
                     <ModalBody>
-                        <Button fontSize='sm' fontWeight='500' borderRadius='7px'>
+                        <Button fontSize='sm' fontWeight='500' borderRadius='7px' onClick={() => addRow()}>
                             (+) add new form type
                         </Button>
                         <FormControl id="email">

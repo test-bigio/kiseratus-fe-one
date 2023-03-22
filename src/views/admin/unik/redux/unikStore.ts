@@ -1,9 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+const defaultDatas = [
+    {
+        id: 1,
+        data: [
+            {
+                type: 'text',
+                label: 'Apa itu Hewan',
+                maxSize: 10,
+                typeNumber: '',
+                value: ''
+            }
+        ]
+    }
+]
+
 export const unikStore = createSlice({
     name: "unikForm",
     initialState: {
-        unikDatas: []
+        unikDatas: defaultDatas
     },
     reducers: {
         write: (state, action) => {

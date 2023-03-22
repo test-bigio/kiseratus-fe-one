@@ -10,7 +10,6 @@ import {
 import InputTextUnik from "./InputTextUnik";
 import * as React from "react";
 
-
 export default function UnikForm(
     props: { configurationData: any, isSubmit: boolean, isOpen: boolean, onClose: any, title: string }) {
     const { configurationData, isSubmit, isOpen, onClose, title } = props;

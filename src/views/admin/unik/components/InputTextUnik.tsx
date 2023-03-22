@@ -7,7 +7,7 @@ export default function InputTextUnik(props: { data: any }) {
     const { data } = props;
 
     return (
-        <Flex>
+        <Flex px='10px' pt='5px'>
             <FormLabel htmlFor="name">{ data.label }</FormLabel>
             <Input
                 type={data.type}
