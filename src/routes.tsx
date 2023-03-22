@@ -1,5 +1,5 @@
 import { Icon } from '@chakra-ui/react';
-import { MdBarChart, MdPerson, MdHome, MdLock, MdOutlineShoppingCart, MdOutlineCalculate } from 'react-icons/md';
+import { MdBarChart, MdPerson, MdHome, MdLock, MdOutlineShoppingCart, MdOutlineCalculate, MdDateRange } from 'react-icons/md';
 
 // Admin Imports
 import MainDashboard from 'views/admin/default';
@@ -8,6 +8,7 @@ import Formula from 'views/admin/formula';
 import Profile from 'views/admin/profile';
 import DataTables from 'views/admin/dataTables';
 import RTL from 'views/admin/rtl';
+import Jadwal from 'views/admin/jadwal'
 
 // Auth Imports
 import SignInCentered from 'views/auth/signIn';
@@ -36,6 +37,14 @@ const routes = [
 		icon: <Icon as={MdOutlineCalculate} width='20px' height='20px' color='inherit' />,
 		component: Formula,
 		role: ['tukang-formula']
+	},
+	{
+		name: 'Jadwal 4.0',
+		layout: '/admin',
+		path: '/jadwal',
+		icon: <Icon as={MdDateRange} width='20px' height='20px' color='inherit'/>,
+		component: Jadwal,
+		role: ['tukang-jadwal']
 	},
 	// {
 	// 	name: 'Data Tables',
