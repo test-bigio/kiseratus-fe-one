@@ -1,5 +1,5 @@
 import { Icon } from '@chakra-ui/react';
-import { MdBarChart, MdPerson, MdHome, MdLock, MdOutlineShoppingCart, MdOutlineCalculate, MdDateRange } from 'react-icons/md';
+import { MdBarChart, MdPerson, MdHome, MdLock, MdOutlineShoppingCart, MdOutlineCalculate, MdDateRange, MdAccountTree } from 'react-icons/md';
 
 // Admin Imports
 import MainDashboard from 'views/admin/default';
@@ -17,6 +17,7 @@ import Information from 'views/admin/information';
 import Dashboard from 'views/admin/dashboard';
 import canggih from 'views/admin/canggih';
 import CreateCanggih from 'views/admin/canggih/components/CreateCanggih';
+import SilsilahKeluarga from 'views/admin/silsilah-keluarga';
 
 const routes = [
 	{
@@ -83,6 +84,14 @@ const routes = [
 		icon: <Icon as={MdDateRange} width='20px' height='20px' color='inherit'/>,
 		component: canggih,
 		role: ['tukang-form-canggih']
+	},
+	{
+		name: 'Silsilah Keluarga',
+		layout: '/admin',
+		path: '/silsilah-keluarga',
+		icon: <Icon as={MdAccountTree} width='20px' height='20px' color='inherit'/>,
+		component: SilsilahKeluarga,
+		role: ['tukang-keluarga']
 	},
 	// {
 	// 	name: 'Data Tables',
