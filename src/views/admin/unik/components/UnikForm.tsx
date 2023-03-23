@@ -13,6 +13,7 @@ import { useAppDispatch, useAppSelector } from 'stores/hooks'
 import {RootState} from "../../../../stores";
 import {useEffect, useState} from "react";
 import {write} from "../redux/unikStore";
+import {list} from "@chakra-ui/system";
 
 export default function UnikForm(
     props: { isSubmit: boolean, isOpen: boolean, onClose: any, title: string, id: any }) {
@@ -20,6 +21,7 @@ export default function UnikForm(
     const dispatch = useAppDispatch()
 
     const [confDatas, setConfDatas] = useState(useAppSelector((state:RootState) => state.confFormStore.confFormDatas))
+
     const lists = useAppSelector((state:RootState) => state.unikForm.unikDatas)
 
     useEffect(() => {
@@ -29,17 +31,14 @@ export default function UnikForm(
         }
     }, [id]);
 
-
     const addRow = (data : any) => {
         const newData = {
             id: Date.now(),
-            data:  data
+            data:  lists
         }
 
         dispatch(write(newData))
     }
-
-
     return (
         <>
             <Modal size={'xl'} isOpen={isOpen} onClose={onClose}>
@@ -49,7 +48,7 @@ export default function UnikForm(
                     <ModalBody>
                         <FormControl id="email">
                             {confDatas.map((row, index) => {
-                                return (<InputTextUnik key={index} data={row} />);
+                                return (<InputTextUnik key={index} id={id} data={row} />);
                             })}
                         </FormControl>
                     </ModalBody>

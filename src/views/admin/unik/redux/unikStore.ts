@@ -7,9 +7,25 @@ const defaultDatas = [
             {
                 id: 1,
                 type: 'text',
-                label: 'Apa itu Hewan',
+                label: 'Nama',
                 maxSize: 10,
                 typeNumber: '',
+                value: 'TEst'
+            },
+            {
+                id: 2,
+                type: 'date',
+                label: 'Tanggal Lahir',
+                maxSize: 0,
+                typeNumber: '',
+                value: 'Test'
+            },
+            {
+                id: 3,
+                type: 'number',
+                label: 'Jumlah Hp',
+                maxSize: 0,
+                typeNumber: 'integer',
                 value: 'Test'
             }
         ]
@@ -25,12 +41,15 @@ export const unikStore = createSlice({
         write: (state, action) => {
             state.unikDatas = [...state.unikDatas, action.payload];
         },
+        push: (state, action) => {
+            state.unikDatas = action.payload;
+        },
         remove: (state, action) => {
             state.unikDatas = state.unikDatas.filter(data => data.id !== action.payload.id)
         }
     },
 });
 
-export const { write, remove } = unikStore.actions;
+export const { write, remove, push } = unikStore.actions;
 
 export default unikStore.reducer;

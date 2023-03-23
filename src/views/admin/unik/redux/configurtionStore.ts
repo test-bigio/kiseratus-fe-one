@@ -6,21 +6,24 @@ const defaultDatas = [
         type: 'text',
         label: 'Nama',
         maxSize: 10,
-        typeNumber: ''
+        typeNumber: '',
+        value: ''
     },
     {
         id: 2,
         type: 'date',
         label: 'Tanggal Lahir',
         maxSize: 0,
-        typeNumber: ''
+        typeNumber: '',
+        value: ''
     },
     {
         id: 3,
         type: 'number',
         label: 'Jumlah Hp',
         maxSize: 0,
-        typeNumber: 'integer'
+        typeNumber: 'integer',
+        value: ''
     }
 ];
 
