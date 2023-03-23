@@ -10,11 +10,14 @@ import Profile from 'views/admin/profile';
 import DataTables from 'views/admin/dataTables';
 import RTL from 'views/admin/rtl';
 import Jadwal from 'views/admin/jadwal'
+import Table40 from 'views/admin/table4.0'
 
 // Auth Imports
 import SignInCentered from 'views/auth/signIn';
 import Information from 'views/admin/information';
 import Dashboard from 'views/admin/dashboard';
+import canggih from 'views/admin/canggih';
+import CreateCanggih from 'views/admin/canggih/components/CreateCanggih';
 
 const routes = [
 	{
@@ -23,7 +26,7 @@ const routes = [
 		path: '/dashboard',
 		icon: <Icon as={MdHome} width='20px' height='20px' color='inherit' />,
 		component: Dashboard,
-		role: ["tukang-jadwal", "tukang-keluarga", "tukang-form-unik", "tukang-formula", "tukang-form-canggih", "tukang-tabel", "tukang-segala-tukang"]
+		role: ["tukang-jadwal", "tukang-keluarga", "tukang-form-unik", "tukang-formula", "tukang-form-canggih", "tukang-tabel", "tukang-segala-tukang", 'tukang-grafik']
 	},
 
 	{
@@ -59,12 +62,37 @@ const routes = [
 		role: ['tukang-jadwal']
 	},
 	{
+		name: 'Table 4.0',
+		layout: '/admin',
+		path: '/table',
+		icon: <Icon as={MdDateRange} width='20px' height='20px' color='inherit'/>,
+		component: Table40,
+		role: ['tukang-tabel']
+	},
+	{
 		name: 'Halaman Informasi',
 		layout: '/admin',
 		path: '/informasi',
 		icon: <Icon as={MdDateRange} width='20px' height='20px' color='inherit'/>,
 		component: Information,
 		role: ['tukang-grafik']
+	},
+	{
+		name: 'Form Canggih',
+		layout: '/admin',
+		path: '/canggih/tambah',
+		icon: <Icon as={MdDateRange} width='20px' height='20px' color='inherit'/>,
+		component: CreateCanggih,
+		show: false,
+		role: ['tukang-form-canggih']
+	},
+	{
+		name: 'Form Canggih',
+		layout: '/admin',
+		path: '/canggih',
+		icon: <Icon as={MdDateRange} width='20px' height='20px' color='inherit'/>,
+		component: canggih,
+		role: ['tukang-form-canggih']
 	},
 	// {
 	// 	name: 'Data Tables',
