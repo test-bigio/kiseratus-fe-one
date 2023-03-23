@@ -151,8 +151,6 @@ export default function MemberTable(props: { tableData: any }) {
       cell: (info) => {
         return (
           <Flex align="center">
-            <Button colorScheme="green" size="sm" mr="4"> Detail </Button>
-            <Button colorScheme="blue" size="sm" mr="4"> Edit </Button>
             <Button colorScheme="red" size="sm" onClick={() => handleDelete(info.row.original.id)}> Delete </Button>
           </Flex>
         )
