@@ -33,12 +33,15 @@ export const confStore = createSlice({
         write: (state, action) => {
             state.confFormDatas = [...state.confFormDatas, action.payload];
         },
+        push: (state, action) => {
+            state.confFormDatas = action.payload;
+        },
         remove: (state, action) => {
             state.confFormDatas = state.confFormDatas.filter(data => data.id !== action.payload.id)
         }
     },
 });
 
-export const { write, remove } = confStore.actions;
+export const { write, remove, push } = confStore.actions;
 
 export default confStore.reducer;

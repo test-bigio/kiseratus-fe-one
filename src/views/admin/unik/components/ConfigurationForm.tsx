@@ -11,15 +11,15 @@ import {
 
 import TextDateConf from "./TextConf";
 import { useAppDispatch, useAppSelector } from 'stores/hooks'
-import {write} from "../redux/configurtionStore";
+import {write, push} from "../redux/configurtionStore";
 
 import * as React from "react";
 
-export default function ConfigurationForm(props: { configurationData: any, isOpen: boolean, onClose: any }) {
-    const dispatch = useAppDispatch()
-    const { configurationData, isOpen, onClose, } = props;
+import {RootState} from "../../../../stores";
 
-    const [ data ] = React.useState(() => [ ...configurationData ]);
+export default function ConfigurationForm(props: { isOpen: boolean, onClose: any }) {
+    const dispatch = useAppDispatch()
+    const { isOpen, onClose, } = props;
 
     const addRow = () => {
         const newData = {
@@ -33,6 +33,8 @@ export default function ConfigurationForm(props: { configurationData: any, isOpe
         dispatch(write(newData))
     }
 
+    const confDatas = useAppSelector((state:RootState) => state.confFormStore.confFormDatas)
+
     return (
         <>
             <Modal size={'xl'} isOpen={isOpen} onClose={onClose}>
@@ -43,8 +45,9 @@ export default function ConfigurationForm(props: { configurationData: any, isOpe
                         <Button fontSize='sm' fontWeight='500' borderRadius='7px' onClick={() => addRow()}>
                             (+) add new form type
                         </Button>
+
                         <FormControl id="email">
-                            {data.map((row, index) => {
+                            {confDatas.map((row, index) => {
                                 return (<TextDateConf key={index} data={row} />);
                             })}
                         </FormControl>
@@ -54,7 +57,7 @@ export default function ConfigurationForm(props: { configurationData: any, isOpe
                         <Button variant="ghost" onClick={onClose}>
                             Batal
                         </Button>
-                        <Button colorScheme="blue" mr={3} onClick={(e) => alert("click")}>
+                        <Button colorScheme="blue" mr={3} onClick={onClose}>
                             Simpan
                         </Button>
                     </ModalFooter>

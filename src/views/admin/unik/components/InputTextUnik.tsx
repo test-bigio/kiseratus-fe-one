@@ -1,10 +1,12 @@
-import {Button, Flex, FormControl, FormLabel, Input, Select} from "@chakra-ui/react";
-import TextDateConf from "./TextConf";
+import {Flex, FormLabel, Input, Select} from "@chakra-ui/react";
 import * as React from "react";
+import {useEffect, useState} from "react";
 
 
 export default function InputTextUnik(props: { data: any }) {
     const { data } = props;
+
+
 
     return (
         <Flex px='10px' pt='5px'>

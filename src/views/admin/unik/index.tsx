@@ -18,6 +18,8 @@ import UnikForm from "./components/UnikForm";
 
 import { useAppDispatch, useAppSelector } from 'stores/hooks'
 import {RootState} from "../../../stores";
+import {write} from "./redux/configurtionStore";
+import {useState} from "react";
 
 export default function UnikComponent() {
     const {
@@ -38,11 +40,27 @@ export default function UnikComponent() {
         onClose: onCloseConfModal,
     } = useDisclosure();
 
+    const {
+        isOpen: isOpenEditModal,
+        onOpen: onOpenEditModal,
+        onClose: onCloseEditModal,
+    } = useDisclosure();
+
+
     const unikDatas = useAppSelector((state:RootState) => state.unikForm.unikDatas)
-    const confDatas = useAppSelector((state:RootState) => state.confFormStore.confFormDatas)
 
     const textColorSecondary = useColorModeValue('secondaryGray.600', 'white');
     const boxBg = useColorModeValue('secondaryGray.300', 'whiteAlpha.100');
+
+
+    const [id, setId] = useState('')
+    const [editModalShow, setEditModalShow] = useState(false)
+
+    const edit = (id: any) => {
+        setId(id)
+        setEditModalShow(true)
+    }
+
     return (
         <Box pt={{ base: '130px', md: '80px', xl: '80px' }}>
             <SimpleGrid columns={{ base: 1, md: 2, xl: 1 }} gap='20px' mb='20px'>
@@ -72,7 +90,7 @@ export default function UnikComponent() {
                                     return (
                                         <Tr key={index}>
                                             <Td>{ row.id} </Td>
-                                            <Td><Button>detail</Button></Td>
+                                            <Td><Button onClick={() => edit(row.id)}>detail</Button></Td>
                                         </Tr>
                                     )
                                 })}
@@ -83,21 +101,28 @@ export default function UnikComponent() {
             </SimpleGrid>
 
             <ConfigurationForm
-                configurationData={confDatas}
                 isOpen={isOpenConfModal}
                 onClose={onCloseConfModal}
             ></ConfigurationForm>
 
             <UnikForm
-                configurationData={confDatas}
                 isSubmit={true}
+                id={null}
                 title={'Form Tambah'}
                 isOpen={isOpenCreateModal}
                 onClose={onCloseCreateModal}
             ></UnikForm>
 
             <UnikForm
-                configurationData={confDatas}
+                isSubmit={true}
+                id={id}
+                title={'Form Edit'}
+                isOpen={editModalShow}
+                onClose={ () => setEditModalShow(false) }
+            ></UnikForm>
+
+            <UnikForm
+                id={null}
                 isSubmit={false}
                 title={'Form Preview'}
                 isOpen={isOpenPreviewModal}

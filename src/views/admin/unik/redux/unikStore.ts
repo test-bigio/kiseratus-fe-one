@@ -5,11 +5,12 @@ const defaultDatas = [
         id: 1,
         data: [
             {
+                id: 1,
                 type: 'text',
                 label: 'Apa itu Hewan',
                 maxSize: 10,
                 typeNumber: '',
-                value: ''
+                value: 'Test'
             }
         ]
     }

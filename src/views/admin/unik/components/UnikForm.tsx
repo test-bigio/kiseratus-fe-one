@@ -9,12 +9,36 @@ import {
 } from "@chakra-ui/react";
 import InputTextUnik from "./InputTextUnik";
 import * as React from "react";
+import { useAppDispatch, useAppSelector } from 'stores/hooks'
+import {RootState} from "../../../../stores";
+import {useEffect, useState} from "react";
+import {write} from "../redux/unikStore";
 
 export default function UnikForm(
-    props: { configurationData: any, isSubmit: boolean, isOpen: boolean, onClose: any, title: string }) {
-    const { configurationData, isSubmit, isOpen, onClose, title } = props;
+    props: { isSubmit: boolean, isOpen: boolean, onClose: any, title: string, id: any }) {
+    const { isSubmit, isOpen, onClose, title, id } = props;
+    const dispatch = useAppDispatch()
 
-    const [ data ] = React.useState(() => [ ...configurationData ]);
+    const [confDatas, setConfDatas] = useState(useAppSelector((state:RootState) => state.confFormStore.confFormDatas))
+    const lists = useAppSelector((state:RootState) => state.unikForm.unikDatas)
+
+    useEffect(() => {
+        if (id != null && typeof(id) != "undefined" && id !== '') {
+            const list = lists.find(row => { return row.id === id})
+            setConfDatas(list.data)
+        }
+    }, [id]);
+
+
+    const addRow = (data : any) => {
+        const newData = {
+            id: Date.now(),
+            data:  data
+        }
+
+        dispatch(write(newData))
+    }
+
 
     return (
         <>
@@ -24,7 +48,7 @@ export default function UnikForm(
                     <ModalHeader>{ title }</ModalHeader>
                     <ModalBody>
                         <FormControl id="email">
-                            {data.map((row, index) => {
+                            {confDatas.map((row, index) => {
                                 return (<InputTextUnik key={index} data={row} />);
                             })}
                         </FormControl>
@@ -33,7 +57,7 @@ export default function UnikForm(
                         <Button variant="ghost" onClick={onClose}>
                             Batal
                         </Button>
-                        {isSubmit ?  <Button colorScheme="blue" mr={3} onClick={(e) => alert("click")}>
+                        {isSubmit ?  <Button colorScheme="blue" mr={3} onClick={(e) => addRow(confDatas)}>
                             Simpan
                         </Button> : null}
 
